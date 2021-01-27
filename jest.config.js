@@ -2,13 +2,12 @@ module.exports = {
     // setupFiles: ["dotenv/config"],
     collectCoverageFrom: [
       "server/**/*.js",
-      "!server/**/*.test.js",
-      "!server/controller/User.js",
+      "!server/**/*.test.ts",
       "!/node_modules/",
     ],
     globals: {
         "ts-jest": {
-            tsConfig: "tsconfig.json"
+            tsconfig: "tsconfig.json"
         }
     },
     moduleFileExtensions: [
@@ -20,13 +19,6 @@ module.exports = {
     },
     testMatch: [
         "**/test/**/*.test.(ts|js)"
-    ],
-    projects: [
-      {
-        displayName: "backend",
-        testEnvironment: "node",
-        testMatch: ["<rootDir>/**/*.test.js"],
-      }
-    ],
+    ]
   };
   
