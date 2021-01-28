@@ -34,23 +34,16 @@ const data2 = {
  * Validate route
  */
 describe("validate route test", () => {
-  it("should respond with HTTP 200 for valid route", async (done) => {
-    const response = await request.post("/validate-rule");
-
-    expect(response.status).toBe(200);
-    done();
-  });
+  
   it("should respond with HTTP 200 for valid input and passed validation", async (done) => {
     const response = await request.post("/validate-rule")
     .send(data1)
     .set("Accept", "application/json");
-    
     expect(response.body.message).toBe(FIELD_VAL_SUCC(data1.rule.field));
     expect(response.body.status).toBe(SUCCESS);
-   
     expect(response.body.data.validation.error).toBe(false);
     expect(response.body.data.validation.field).toBe(data1.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data1.data[data1.rule.field]);
+    expect(response.body.data.validation.field_value).toBe(data1.data[data1.rule.field as 'missions']);
     expect(response.body.data.validation.condition).toBe(data1.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data1.rule.condition_value);
 
@@ -66,9 +59,9 @@ describe("validate route test", () => {
     expect(response.body.message).toBe(FIELD_VAL_FAIL(data2.rule.field));
     expect(response.body.status).toBe(ERROR);
    
-    expect(response.body.data.validation.error).toBe(false);
+    expect(response.body.data.validation.error).toBe(true);
     expect(response.body.data.validation.field).toBe(data2.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data2.data[data2.rule.field]);
+    expect(response.body.data.validation.field_value).toBe(data2.data[data2.rule.field as 'missions']);
     expect(response.body.data.validation.condition).toBe(data2.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data2.rule.condition_value);
 
@@ -329,7 +322,7 @@ it("should respond with error message for missing property in rule - condition_v
   });
 
 
-  //Advanced test
+//   //Advanced test
   describe("validate when data is an Array", () => {
     it("should respond with HTTP 200 for valid input and passed validation", async (done) => {
     const data =  {
@@ -349,7 +342,7 @@ it("should respond with error message for missing property in rule - condition_v
    
     expect(response.body.data.validation.error).toBe(false);
     expect(response.body.data.validation.field).toBe(data.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field]);
+    expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as unknown as 2]);
     expect(response.body.data.validation.condition).toBe(data.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
 
@@ -405,7 +398,7 @@ it("should respond with error message for missing property in rule - condition_v
                 "condition": CONTAINS,
                 "condition_value":"ee"
               },
-              "data": []
+              "data": Array()
         };
         const response = await request.post("/validate-rule")
         .send(data)
@@ -438,7 +431,7 @@ describe("validate when data is an String", () => {
    
     expect(response.body.data.validation.error).toBe(false);
     expect(response.body.data.validation.field).toBe(data.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field]);
+    expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as unknown as 0]);
     expect(response.body.data.validation.condition).toBe(data.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
 
@@ -464,7 +457,7 @@ describe("validate when data is an String", () => {
        
         expect(response.body.data.validation.error).toBe(true);
         expect(response.body.data.validation.field).toBe(data.rule.field);
-        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field]);
+        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as unknown as 0]);
         expect(response.body.data.validation.condition).toBe(data.rule.condition);
         expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
     
@@ -532,7 +525,7 @@ describe("validate when data is an Object", () => {
        
         expect(response.body.data.validation.error).toBe(true);
         expect(response.body.data.validation.field).toBe(data.rule.field);
-        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field]);
+        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as 'missions' | 'name']);
         expect(response.body.data.validation.condition).toBe(data.rule.condition);
         expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
     
@@ -595,10 +588,10 @@ describe("validate when data is an Object", () => {
             expect(response.body.status).toBe(SUCCESS);
         
             expect(response.body.data.validation.error).toBe(false);
-            expect(response.body.data.validation.field).toBe(data1.rule.field);
-            expect(response.body.data.validation.field_value).toBe(data1.data[data1.rule.field]);
-            expect(response.body.data.validation.condition).toBe(data1.rule.condition);
-            expect(response.body.data.validation.condition_value).toBe(data1.rule.condition_value);
+            expect(response.body.data.validation.field).toBe(data.rule.field);
+            expect(response.body.data.validation.field_value).toBe(data.data.missions.stage.round);
+            expect(response.body.data.validation.condition).toBe(data.rule.condition);
+            expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
 
             expect(response.status).toBe(200);
             done();
@@ -649,7 +642,7 @@ it("should respond with HTTP 400 for more than 2 nested level in field", async (
         it("should respond with HTTP 400 if invalid condition is passed", async (done) => {
             const data =  {
                 "rule": {
-                    "field": "missions.stage.round.door",
+                    "field": "missions.stage.round",
                     "condition": "lte",
                     "condition_value":23
                   },
@@ -665,21 +658,5 @@ it("should respond with HTTP 400 for more than 2 nested level in field", async (
             expect(response.status).toBe(400);
             done();
             });
-
-            // When data is an array
-//  string not found,doublestring nor found(array has values)
-// string(number) not found(empty array)
-
-// When data is string
-// string(number) equal(found),string not found, string not equal 
-
-//When data is object
-//string not found, one level not found(fails val), one level not found, two level found(pass val) 
-  
-//error when more than two level in field
-
-//neq,gt,gte array,contains(1 pass, 1 fail)
-
-//end
 });
   
