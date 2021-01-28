@@ -90,8 +90,10 @@ export const customResult = (message:string,rule:objectType, field_value:string,
         data: {
             validation: {
                 error: status,
-                field_value: field_value,
-                ...rule
+                field: rule.field,
+                field_value,
+                condition: rule.condition,
+                condition_value: rule.condition_value
             }
         }
       };
