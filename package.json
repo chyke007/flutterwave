@@ -10,7 +10,7 @@
     "lint": "tsc --noEmit && esw \"**/*.{js,ts}\" --quiet --fix",
     "lint-w": "tsc --noEmit && esw  \"**/*.{js,ts}\" --quiet --fix -w",
     "serve": "node dist/index.js",
-    "start": "npm run serve",
+    "start": "npm run build-ts && npm run serve",
     "test": "jest --setupFiles dotenv/config",
     "watch-node": "nodemon dist/index.js",
     "watch-test": "npm run test --setupFiles dotenv/config --watchAll",
