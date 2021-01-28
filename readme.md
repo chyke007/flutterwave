@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/chyke007/flutterwave.svg?branch=master)](https://travis-ci.com/chyke007/flutterwave)
 
 <p align="center">
-  <a href="#key-features">Live</a> •
+  <a href="#live">Live</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a> •
@@ -35,6 +35,8 @@ $ cp .env.example .env
 # Install dependencies
 $ npm install
 
+# Build Files
+$ npm run build-ts
 
 # Run the app
 $ npm start
