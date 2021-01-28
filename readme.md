@@ -3,20 +3,20 @@
   <br>
 </h1>
 
-<h4 align="center"><a href="https://flutterwave.herokuapp.com/" target="_blank">Flutterwave,</a> assessment.</h4>
+<h4 align="center"><a href="https://flutterw.herokuapp.com/" target="_blank">Flutterwave,</a> assessment.</h4>
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) [![Build Status](https://travis-ci.com/chyke007/flutterwave.svg?branch=master)](https://travis-ci.com/chyke007/flutterwave) [![Coverage Status](https://coveralls.io/repos/github/chyke007/flutterwave/badge.svg?branch=master)](https://coveralls.io/github/chyke007/flutterwave?branch=master)
 
 <p align="center">
-  <a href="#key-features">Key Features</a> •
+  <a href="#key-features">Live</a> •
   <a href="#how-to-use">How To Use</a> •
   <a href="#credits">Credits</a> •
   <a href="#license">License</a> •
 </p>
 
-## Key Features
+## Live
 
-To be added
+Live Api can be found <a href="https://flutterw.herokuapp.com/" target="_blank">here</a>
 
 ## How To Use
 

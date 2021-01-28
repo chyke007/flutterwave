@@ -1,7 +1,7 @@
 module.exports = {
     // setupFiles: ["dotenv/config"],
     collectCoverageFrom: [
-      "server/**/*.js",
+      "server/**/*.ts",
       "!server/**/*.test.ts",
       "!/node_modules/",
     ],
