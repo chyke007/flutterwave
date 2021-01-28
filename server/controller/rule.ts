@@ -1,7 +1,26 @@
 // eslint-disable-next-line no-unused-vars
 import { Response, Request, NextFunction } from "express";
 import { NAME, EMAIL, GITHUB, MOBILE} from "../../config";
-import { GET_MESSAGE,SUCCESS } from "../utils";
+import {CONTAINS, ERROR, EQ,FIELD_VAL_FAIL, FIELD_VAL_SUCC,FIELD_REQ,GET_MESSAGE,GT, GTE, INVALID_DATA,INVALID_PAYLOAD,INVALID_RULE,MISSING_FROM_DATA,MISSING_FROM_RULE,NEQ, SUCCESS, TOO_MUCH_NESTING } from "../../server/utils";
+
+
+interface CustomEx {
+    message: string,
+    status: string,
+    data: any
+}
+/**
+ * Send error payload to user
+ * @param  {string} string
+ */
+const CustomException = (message:string): CustomEx => {
+   return  {
+        message,
+        status: ERROR,
+        data: null
+      };
+
+};
 
 type rule = {
     data: Record<string, unknown>;
@@ -55,18 +74,21 @@ const get = async function (req:Request, res:Response, next:NextFunction) {
  * @param  {NextFunction} next
  */
 const validate = async function (req:Request, res:Response, next:NextFunction) {
-    const details = {
-        message: GET_MESSAGE,
-        status: SUCCESS,
-        data:{
+    const { body } = req;
+    
+    if (!("rule" in body) && !("data" in body)) {
+        res.status(400);
+        return res.json(CustomException(INVALID_PAYLOAD));
+    }
 
-            "nasme": NAME,
-            "github": GITHUB,
-            "email": EMAIL,
-            "mobile": MOBILE
-        }
-    };
-  handleResult(details, res, next);
+    if (!("rule" in body) || !("data" in body) || (body.rule === null) || (body.data === null)) {
+        res.status(400);
+        return res.json(CustomException(FIELD_REQ(body.rule ? "data": "rule")));
+    }
+
+    //Invalid rule
+
+    //Invalid data
     
   };
   
