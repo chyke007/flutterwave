@@ -43,7 +43,7 @@ describe("validate route test", () => {
     expect(response.body.status).toBe(SUCCESS);
     expect(response.body.data.validation.error).toBe(false);
     expect(response.body.data.validation.field).toBe(data1.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data1.data[data1.rule.field as 'missions']);
+    expect(response.body.data.validation.field_value).toBe(data1.data[data1.rule.field as "missions"]);
     expect(response.body.data.validation.condition).toBe(data1.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data1.rule.condition_value);
 
@@ -61,7 +61,7 @@ describe("validate route test", () => {
    
     expect(response.body.data.validation.error).toBe(true);
     expect(response.body.data.validation.field).toBe(data2.rule.field);
-    expect(response.body.data.validation.field_value).toBe(data2.data[data2.rule.field as 'missions']);
+    expect(response.body.data.validation.field_value).toBe(data2.data[data2.rule.field as "missions"]);
     expect(response.body.data.validation.condition).toBe(data2.rule.condition);
     expect(response.body.data.validation.condition_value).toBe(data2.rule.condition_value);
 
@@ -398,7 +398,7 @@ it("should respond with error message for missing property in rule - condition_v
                 "condition": CONTAINS,
                 "condition_value":"ee"
               },
-              "data": Array()
+              "data": [""]
         };
         const response = await request.post("/validate-rule")
         .send(data)
@@ -413,7 +413,7 @@ it("should respond with error message for missing property in rule - condition_v
 });
 
 describe("validate when data is an String", () => {
-    it("should respond with HTTP 200 for passed validation", async (done) => {
+    it("should respond with HTTP 200 for passed validation - EQ", async (done) => {
     const data =  {
         "rule": {
             "field": "0",
@@ -439,6 +439,32 @@ describe("validate when data is an String", () => {
     done();
     });
 
+    it("should respond with HTTP 200 for passed validation - GT", async (done) => {
+      const data =  {
+          "rule": {
+              "field": "0",
+              "condition": GT,
+              "condition_value":32
+            },
+            "data": [34,35,36]
+      };
+      const response = await request.post("/validate-rule")
+      .send(data)
+      .set("Accept", "application/json");
+  
+      expect(response.body.message).toBe(FIELD_VAL_SUCC(data.rule.field));
+      expect(response.body.status).toBe(SUCCESS);
+     
+      expect(response.body.data.validation.error).toBe(false);
+      expect(response.body.data.validation.field).toBe(data.rule.field);
+      expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as unknown as 0]);
+      expect(response.body.data.validation.condition).toBe(data.rule.condition);
+      expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
+  
+      expect(response.status).toBe(200);
+      done();
+      });
+  
     it("should respond with HTTP 400 for failed validation", async (done) => {
         const data =  {
             "rule": {
@@ -525,7 +551,7 @@ describe("validate when data is an Object", () => {
        
         expect(response.body.data.validation.error).toBe(true);
         expect(response.body.data.validation.field).toBe(data.rule.field);
-        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as 'missions' | 'name']);
+        expect(response.body.data.validation.field_value).toBe(data.data[data.rule.field as "missions" | "name"]);
         expect(response.body.data.validation.condition).toBe(data.rule.condition);
         expect(response.body.data.validation.condition_value).toBe(data.rule.condition_value);
     
