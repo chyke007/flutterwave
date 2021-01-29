@@ -1,5 +1,21 @@
 import { request } from "../index";
-import {CONTAINS, ERROR, EQ,FIELD_VAL_FAIL, FIELD_VAL_SUCC,FIELD_REQ,GT, GTE, INVALID_DATA,INVALID_PAYLOAD,INVALID_RULE,MISSING_FROM_DATA,MISSING_FROM_RULE,NEQ, SUCCESS, TOO_MUCH_NESTING } from "../../server/utils";
+import {
+  CONTAINS,
+  ERROR, 
+  EQ, 
+  FIELD_VAL_FAIL, 
+  FIELD_VAL_SUCC,
+  FIELD_REQ,
+  GT, 
+  GTE, 
+  INVALID_DATA,
+  INVALID_PAYLOAD,
+  INVALID_RULE,
+  MISSING_FROM_DATA,
+  NEQ, 
+  SUCCESS, 
+  TOO_MUCH_NESTING
+ } from "../../server/utils";
 
 const data1 = {
     "rule": {
@@ -200,7 +216,7 @@ it("should respond with error message for missing property in rule - field ", as
           }
     })
     .set("Accept", "application/json");
-    expect(response.body.message).toBe(MISSING_FROM_RULE("field"));
+    expect(response.body.message).toBe(INVALID_PAYLOAD);
     expect(response.body.data).toBe(null);
     expect(response.body.status).toBe(ERROR);
     expect(response.status).toBe(400);
@@ -222,7 +238,7 @@ it("should respond with error message for missing property in rule - field ", as
           }
     })
     .set("Accept", "application/json");
-    expect(response2.body.message).toBe(MISSING_FROM_RULE("field"));
+    expect(response2.body.message).toBe(INVALID_PAYLOAD);
     expect(response2.body.data).toBe(null);
     expect(response2.body.status).toBe(ERROR);
     expect(response2.status).toBe(400);
@@ -246,7 +262,7 @@ it("should respond with error message for missing property in rule - condition "
           }
     })
     .set("Accept", "application/json");
-    expect(response.body.message).toBe(MISSING_FROM_RULE("condition"));
+    expect(response.body.message).toBe(INVALID_PAYLOAD);
     expect(response.body.data).toBe(null);
     expect(response.body.status).toBe(ERROR);
     expect(response.status).toBe(400);
@@ -268,7 +284,7 @@ it("should respond with error message for missing property in rule - condition "
           }
     })
     .set("Accept", "application/json");
-    expect(response2.body.message).toBe(MISSING_FROM_RULE("condition"));
+    expect(response2.body.message).toBe(INVALID_PAYLOAD);
     expect(response2.body.data).toBe(null);
     expect(response2.body.status).toBe(ERROR);
     expect(response2.status).toBe(400);
@@ -292,7 +308,7 @@ it("should respond with error message for missing property in rule - condition_v
           }
     })
     .set("Accept", "application/json");
-    expect(response.body.message).toBe(MISSING_FROM_RULE("condition_value"));
+    expect(response.body.message).toBe(INVALID_PAYLOAD);
     expect(response.body.data).toBe(null);
     expect(response.body.status).toBe(ERROR);
     expect(response.status).toBe(400);
@@ -314,7 +330,7 @@ it("should respond with error message for missing property in rule - condition_v
           }
     })
     .set("Accept", "application/json");
-    expect(response2.body.message).toBe(MISSING_FROM_RULE("condition_value"));
+    expect(response2.body.message).toBe(INVALID_PAYLOAD);
     expect(response2.body.data).toBe(null);
     expect(response2.body.status).toBe(ERROR);
     expect(response2.status).toBe(400);

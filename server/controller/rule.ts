@@ -14,7 +14,6 @@ import {
     INVALID_PAYLOAD,
     INVALID_RULE,
     MISSING_FROM_DATA,
-    MISSING_FROM_RULE,
     NEQ,
     SUCCESS, 
     TOO_MUCH_NESTING,
@@ -77,7 +76,7 @@ const validate = async function (req:Request, res:Response, next:NextFunction) {
 
     if (!("field" in body.rule) || !("condition" in body.rule) || !("condition_value" in body.rule) || (body.rule.field === null) || (body.rule.condition === null) || (body.rule.condition_value === null)) {
         res.status(400);
-        return res.json(customException(MISSING_FROM_RULE(body.rule.field ? body.rule.condition ? "condition_value" :"condition": "field")));
+        return res.json(customException(INVALID_PAYLOAD));
     }
 
 
