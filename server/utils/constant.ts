@@ -11,9 +11,6 @@ export const INVALID_DATA = "data should be a valid JSON, Array or String.";
 export function FIELD_REQ(field:string){
     return ` ${field} is required.`;
 }
-export function MISSING_FROM_RULE(field:string){
-    return `field ${field} is missing from rule.`;
-}
 export function MISSING_FROM_DATA(field:string){
     return `field ${field} is missing from data.`;
 }
